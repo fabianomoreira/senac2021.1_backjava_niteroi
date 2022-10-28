@@ -44,4 +44,30 @@ public class CategoriaDAO {
 		}
 		
 	}
+	
+	public boolean incluir(Categoria categoria) {
+		boolean retorno = true;
+		int retornoQuery;
+		
+		Connection conexao = Dao.getConexao();
+		
+		String sql = "INSERT INTO categoria(titulo, imagePath) VALUES(?, ?)";
+		
+		try {
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			
+			ps.setString(1, categoria.getTitulo());
+			ps.setString(2, categoria.getImagePath());
+			
+			retornoQuery = ps.executeUpdate();
+			
+			if (retornoQuery <= 0) {
+				retorno = false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return retorno;
+	}
 }

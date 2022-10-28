@@ -13,4 +13,10 @@ public class CategoriaService {
 		
 		return lista;
 	}
+	
+	public boolean incluirCategoria(Categoria categoria) {
+		CategoriaDAO dao = new CategoriaDAO();
+		
+		return dao.incluir(categoria);
+	}
 }

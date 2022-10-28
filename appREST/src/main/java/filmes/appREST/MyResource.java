@@ -4,7 +4,9 @@ import java.util.List;
 
 import filmes.appREST.model.Categoria;
 import filmes.appREST.service.CategoriaService;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
@@ -29,6 +31,22 @@ public class MyResource {
     	Response response = Response.ok().entity(lista).build();
     	
     	return response;
+    }
+    
+    @POST
+    @Path("incluir")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postCategoria(Categoria categoria) {
+    	CategoriaService servico = new CategoriaService();
+    	String resultado;
+    	
+    	if(servico.incluirCategoria(categoria)) {
+    		resultado = "Categoria incluída com sucesso!";
+    	} else {
+    		resultado = "Falha na inclusão da categoria";
+    	}
+    	
+    	return Response.status(200).entity(resultado).build();
     }
 }
 
